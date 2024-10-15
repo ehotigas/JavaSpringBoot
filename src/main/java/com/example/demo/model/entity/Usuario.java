@@ -5,21 +5,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import jakarta.persistence.Id;
-import lombok.ToString;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Entity
 @Table( name = "usuario" )
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Usuario {
     @Id
     @Column( name = "id" )
