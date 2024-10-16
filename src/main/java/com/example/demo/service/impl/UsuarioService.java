@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.exceptions.EmailAlreadyExistsException;
+import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.exceptions.UnAuthorizedException;
 import com.example.demo.model.entity.Usuario;
 import com.example.demo.model.repository.UsuarioRepository;
@@ -18,6 +19,12 @@ public class UsuarioService implements IUsuarioService {
 
     public UsuarioService(UsuarioRepository repository) {
         this.repository = repository;
+    }
+
+    @Override
+    public Usuario findById(Long id) {
+        Usuario usuario = repository.findById(id).orElseThrow(() -> new NotFoundException("User with id: " + id + " not found"));
+        return usuario;
     }
 
     @Override
