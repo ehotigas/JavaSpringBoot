@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import com.example.demo.controller.dto.CriarLancamentoDto;
 import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.model.entity.Lancamento;
 import com.example.demo.model.entity.Usuario;
+import com.example.demo.model.enums.TipoLancamento;
 import com.example.demo.model.repository.LancamentoRepository;
 import com.example.demo.service.ILancamentoService;
 import com.example.demo.service.IUsuarioService;
@@ -68,5 +70,18 @@ public class LancamentoService implements ILancamentoService {
         
         return repository.save(lancamentoToSave);
     }
-    
+
+    @Override
+    @Transactional(readOnly = true)
+    public BigDecimal obterSaldo(Long usuarioId) {
+        BigDecimal receita = repository.obterSaldoPorTipoLancamentoEUsuario(usuarioId, TipoLancamento.RECEITA);
+        BigDecimal despesa = repository.obterSaldoPorTipoLancamentoEUsuario(usuarioId, TipoLancamento.DESPESA);
+        if (receita == null) {
+            receita = BigDecimal.ZERO;
+        }
+        if (despesa == null) {
+            despesa = BigDecimal.ZERO;
+        }
+        return receita.subtract(despesa);
+    }
 }

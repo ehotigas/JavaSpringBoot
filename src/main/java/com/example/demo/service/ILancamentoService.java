@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.example.demo.controller.dto.BuscarLancamentoDto;
@@ -14,4 +15,6 @@ public interface ILancamentoService {
     public Lancamento atualizar(Long id, CriarLancamentoDto lancamento);
 
     public void deletar(Long id);
+
+    public BigDecimal obterSaldo(Long usuarioId);
 }
